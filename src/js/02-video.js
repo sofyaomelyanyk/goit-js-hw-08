@@ -15,4 +15,18 @@ player.on('timeupdate', throttle(onTimeupdate, 1000));
 
 const time = localStorage.getItem(STORAGE_KEY);
 
-player.setCurrentTime(time);
+player
+  .setCurrentTime(time)
+  .then(function (seconds) {
+    // seconds = the actual time that the player seeked to
+  })
+  .catch(function (error) {
+    switch (error.name) {
+      case 'RangeError':
+        break;
+
+      default:
+        // some other error occurred
+        break;
+    }
+  });

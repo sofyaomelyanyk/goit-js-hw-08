@@ -9,12 +9,23 @@ const LOCAGE_KEY = 'feedback-form-state';
 form.addEventListener('input', throttle(onFormInput, 500));
 form.addEventListener('submit', onFormSubmit);
 
-const valueForm = {};
 onLocalStorage();
 
+const valueForm = {};
+
 function onFormInput(event) {
-  valueForm[event.target.name] = event.target.value;
+  valueForm.email = form.email.value;
+  valueForm.message = form.message.value;
+
   localStorage.setItem(LOCAGE_KEY, JSON.stringify(valueForm));
+}
+
+function onFormSubmit(event) {
+  console.log(JSON.parse(localStorage.getItem(LOCAGE_KEY)));
+  event.preventDefault();
+
+  event.currentTarget.reset();
+  localStorage.removeItem(LOCAGE_KEY);
 }
 
 function onLocalStorage() {
@@ -24,11 +35,4 @@ function onLocalStorage() {
     email.value = savedValue.email;
     message.value = savedValue.message;
   }
-}
-
-function onFormSubmit(event) {
-  event.preventDefault();
-  event.currentTarget.reset();
-  console.log(JSON.parse(localStorage.getItem(LOCAGE_KEY)));
-  localStorage.removeItem(LOCAGE_KEY);
 }
