@@ -18,15 +18,15 @@ const time = localStorage.getItem(STORAGE_KEY);
 player
   .setCurrentTime(time)
   .then(function (seconds) {
-    // seconds = the actual time that the player seeked to
+    seconds = time;
   })
   .catch(function (error) {
     switch (error.name) {
       case 'RangeError':
+        !time;
         break;
 
       default:
-        // some other error occurred
         break;
     }
   });
